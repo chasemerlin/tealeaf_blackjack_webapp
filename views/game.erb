@@ -1,0 +1,19 @@
+<h3><%= "Welcome to Blackjack, #{session[:user]}!" %><h3>
+<div class="well">
+	<h4>Dealer's Cards:<h4>
+	<% @game.dealer.hand.cards.each_with_index do |card, index| %>
+		<% if index == 0 %>
+			<img src="/images/cards/cover.jpg">
+		<% else %>
+			<img src="/images/cards/<%= card.suit.downcase %>_<%= card.value %>.jpg">
+		<% end %>
+	<% end %>	
+</div>
+<div class="well">
+	<h4>Your Cards:<h4>
+		<% @game.player.hand.cards.each do |card| %>
+			<img src="/images/cards/<%= card.suit.downcase %>_<%= card.value %>.jpg">
+	  <% end %>
+</div>
+<button class="btn btn-warning btn-large hit-button">Hit</button>
+<button class="btn btn-primary btn-large stay-button">Stay</button>

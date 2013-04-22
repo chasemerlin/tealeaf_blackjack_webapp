@@ -1,19 +1,27 @@
-<h3><%= "Welcome to Blackjack, #{session[:user]}!" %><h3>
+<h2><%= "Welcome to Blackjack, #{session[:user]}!" %><h2>
 <div class="well">
-	<h4>Dealer's Cards:<h4>
-	<% @game.dealer.hand.cards.each_with_index do |card, index| %>
-		<% if index == 0 %>
+	<% if session[:dealer_turn] %>
+	<h3>Dealer's Cards: <%= session[:game].dealer.hand.total %><h3>
+	<% else %>
+	<h3>Dealer's Cards:<h3>
+	<% end %>
+	<% session[:game].dealer.hand.cards.each_with_index do |card, index| %>
+		<% if index == 0 && !session[:dealer_turn] %>
 			<img src="/images/cards/cover.jpg">
 		<% else %>
 			<img src="/images/cards/<%= card.suit.downcase %>_<%= card.value %>.jpg">
 		<% end %>
-	<% end %>	
+	<% end %>
 </div>
 <div class="well">
-	<h4>Your Cards:<h4>
-		<% @game.player.hand.cards.each do |card| %>
-			<img src="/images/cards/<%= card.suit.downcase %>_<%= card.value %>.jpg">
-	  <% end %>
+	<h3>Your Cards: <%= session[:game].player.hand.total %><h3>
+	<% session[:game].player.hand.cards.each do |card| %>
+		<img src="/images/cards/<%= card.suit.downcase %>_<%= card.value %>.jpg">
+	<% end %>
 </div>
-<button class="btn btn-warning btn-large hit-button">Hit</button>
-<button class="btn btn-primary btn-large stay-button">Stay</button>
+<% if !session[:game].player.is_busted? && !session[:dealer_turn] %>
+	<a href="/hit"><button class="btn btn-warning btn-large hit-button">Hit</button></a>
+	<a href="/stay"><button class="btn btn-primary btn-large stay-button">Stay</button></a>
+<% elsif session[:game].player.hand.total == 21 && !session[:dealer_turn] %>
+	<a href="/stay"><button class="btn btn-primary btn-large stay-button">Stay</button></a>
+<% end %>

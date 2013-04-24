@@ -9,14 +9,14 @@
 		<% if index == 0 && !session[:dealer_turn] %>
 			<img src="/images/cards/cover.jpg">
 		<% else %>
-			<img src="/images/cards/<%= card.suit.downcase %>_<%= card.value %>.jpg">
+			<%= card_to_image(card) %>
 		<% end %>
 	<% end %>
 </div>
 <div class="well">
 	<h3>Your Cards: <%= session[:game].player.hand.total %><h3>
 	<% session[:game].player.hand.cards.each do |card| %>
-		<img src="/images/cards/<%= card.suit.downcase %>_<%= card.value %>.jpg">
+		<%= card_to_image(card) %>
 	<% end %>
 </div>
 <% if !session[:game].player.is_busted? && !session[:dealer_turn] %>

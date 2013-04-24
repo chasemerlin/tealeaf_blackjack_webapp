@@ -11,9 +11,17 @@ require './game'
 
 set :sessions, true
 
+helpers do
+	def card_to_image(card)
+		suit = card.suit.downcase
+		value = card.value
+		"<img src='/images/cards/#{suit}_#{value}.jpg'>"
+	end
+end
+
 get '/' do
 	if session[:user].nil?
-		redirect '/form'
+		redirect '/new_player'
 	else
 		redirect 'game'
 	end
@@ -24,8 +32,8 @@ get '/reset' do
 	redirect '/'
 end
 
-get '/form' do
-	erb :form
+get '/new_player' do
+	erb :new_player_form
 end
 
 post '/username' do

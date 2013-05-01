@@ -13,7 +13,7 @@ set :sessions, true
 helpers do
 	def card_to_image(card)
 		suit = card.suit.downcase
-		value = card.value
+		value = card.value.downcase
 		"<img src='/images/cards/#{suit}_#{value}.jpg'>"
 	end
 end

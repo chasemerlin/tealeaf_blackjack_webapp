@@ -1,6 +1,5 @@
 require 'rubygems'
 require 'sinatra'
-require 'pry'
 require './card'
 require './deck'
 require './player'

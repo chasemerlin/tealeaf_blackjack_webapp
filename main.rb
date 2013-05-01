@@ -23,7 +23,7 @@ get '/' do
 	if session[:user].nil?
 		redirect '/new_player'
 	else
-		redirect 'game'
+		redirect '/game'
 	end
 end
 
